@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import './MultiselectButton.css'; // Import CSS file for styling
+import React from 'react';
+import Select from 'react-select';
 
-const MultiselectButton = ({ options, onSelect }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
+const MultiSelectDropdown = () => {
+  const options = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+    { value: 'option4', label: 'Option 4' }
+  ];
 
-  const toggleItem = (item) => {
-    if (selectedItems.includes(item)) {
-      setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
-    } else {
-      setSelectedItems([...selectedItems, item]);
-    }
-  };
-
-  const handleButtonClick = () => {
-    onSelect(selectedItems);
+  const handleOptionSelect = (selectedOption) => {
+    // Call your function with the selected option value
+    console.log("Selected option:", selectedOption);
   };
 
   return (
-    <div className="multiselect-button">
-      <div className="options">
-        {options.map((option, index) => (
-          <div key={index} className={`option ${selectedItems.includes(option) ? 'selected' : ''}`} onClick={() => toggleItem(option)}>
-            {option}
-          </div>
-        ))}
-      </div>
-      <button onClick={handleButtonClick}>Call Function</button>
-    </div>
+    <Select
+      isMulti
+      options={options}
+      onChange={handleOptionSelect}
+      styles={{
+        control: (provided) => ({
+          ...provided,
+          width: '200px',
+          height: '40px'
+        })
+      }}
+    />
   );
 };
 
-export default MultiselectButton;
+export default MultiSelectDropdown;
